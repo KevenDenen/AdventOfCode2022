@@ -14,7 +14,7 @@ internal static class DayTwo
         return scores.Sum();
     }
 
-    internal static object PartTwo()
+    internal static int PartTwo()
     {
         var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
         var scores = input.Select(x => ScorePartTwo(x));
