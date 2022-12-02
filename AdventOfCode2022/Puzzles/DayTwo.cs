@@ -1,5 +1,6 @@
 ﻿using Helpers;
 using System.Linq.Expressions;
+using System.Xml.Schema;
 
 namespace Puzzles;
 
@@ -22,133 +23,35 @@ internal static class DayTwo
 
     private static int ScorePartTwo(string advice)
     {
-        int score = 0;
-        var opponentPlay = advice.Split(' ')[0];
-        var winLoseDraw = advice.Split(" ")[1];
-
-        switch (opponentPlay) 
+        var scores = new Dictionary<string, int>()
         {
-            case "A": // Rock
-                switch (winLoseDraw)
-                {
-                    case "X": // Lose
-                        score += 3; // For playing scissors
-                        break;
-                    case "Y": // Draw
-                        score += 3; // For the draw
-                        score += 1; // For playing rock
-                        break;
-                    case "Z":
-                        score += 6; // For the win
-                        score += 2; // For playing paper
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case "B": // Paper
-                switch (winLoseDraw)
-                {
-                    case "X": // Lose
-                        score += 1; // For playing rock
-                        break;
-                    case "Y": // Draw
-                        score += 3; // For the draw
-                        score += 2; // For playing paper
-                        break;
-                    case "Z":
-                        score += 6; // For the win
-                        score += 3; // For playing scissors
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case "C": // Scissors
-                switch (winLoseDraw)
-                {
-                    case "X": // Lose
-                        score += 2; // For playing paper
-                        break;
-                    case "Y": // Draw
-                        score += 3; // For the draw
-                        score += 3; // For playing scissors
-                        break;
-                    case "Z":
-                        score += 6; // For the win
-                        score += 1; // For playing rock
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-        return score;
+            { "A X", 3 }, // Rock Loss, 3 for scissors, 0 for loss
+            { "A Y", 4 }, // Rock Draw, 1 for rock, 3 for draw
+            { "A Z", 8 }, // Rock Win, 2 for paper, 6 for win
+            { "B X", 1 }, // Paper Loss, 1 for rock, 0 for loss
+            { "B Y", 5 }, // Paper Draw, 2 for paper, 3 for draw
+            { "B Z", 9 }, // Paper Win, 3 for scissors, 6 for win
+            { "C X", 2 }, // Scissors Loss, 2 for paper, 0 for loss
+            { "C Y", 6 }, // Scissors Draw, 3 for scissors, 3 for draw
+            { "C Z", 7 }, // Scissors Win, 1 for rock, 6 for win
+        };
+        return scores[advice];
     }
 
     private static int ScorePartOne(string advice)
     {
-        int score = 0;
-        var opponentPlay = advice.Split(' ')[0];
-        var myPlay = advice.Split(" ")[1];
-
-        switch (myPlay)
+        var scores = new Dictionary<string, int>()
         {
-            case "X":
-                score += 1;
-                break;
-            case "Y":
-                score += 2;
-                break;
-            case "Z":
-                score += 3;
-                break;
-            default:
-                break;
-        }
-
-        switch (opponentPlay) 
-        {
-            case "A": // Rock
-                switch (myPlay)
-                {
-                    case "X": // Rock
-                        score += 3;
-                        break;
-                    case "Y": // Paper
-                        score += 6;
-                        break;
-                    default: // Scissors
-                        break;
-                }
-                break;
-            case "B": // Paper
-                switch (myPlay)
-                {
-                    case "Y":
-                        score += 3; // Paper
-                        break;
-                    case "Z": // Scissors
-                        score += 6;
-                        break;
-                    default: // Rock
-                        break;
-                }
-                break;
-            case "C": // Scissors
-                switch (myPlay)
-                {
-                    case "X": // Rock
-                        score += 6;
-                        break;
-                    case "Z": // Scissors
-                        score += 3;
-                        break;
-                    default: // Paper
-                        break;
-                }
-                break;
-        }
-        return score;
+            { "A X", 4 }, // Rock Rock, 1 for rock, 3 for draw
+            { "A Y", 8 }, // Rock Paper, 2 for paper, 6 for win
+            { "A Z", 3 }, // Rock Scissors, 3 for scissors, 0 for loss
+            { "B X", 1 }, // Paper Rock, 1 for rock, 0 for loss
+            { "B Y", 5 }, // Paper Paper, 2 for paper, 3 for draw
+            { "B Z", 9 }, // Paper Scissors, 3 for scissors, 6 for win
+            { "C X", 7 }, // Scissors Rock, 1 for rock, 6 for win
+            { "C Y", 2 }, // Scissors Paper, 2 for paper, 0 for loss
+            { "C Z", 6 }, // Scissors Scissors, 3 for scissors, 3 for draw
+        };
+        return scores[advice];
     }
 }
