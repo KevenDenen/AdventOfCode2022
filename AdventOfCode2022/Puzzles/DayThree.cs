@@ -6,7 +6,7 @@ internal class DayThree
     internal static int PartOne()
     {
         var file = FileReader.GetWholeFileAsArrayOfLines(fileName);
-        var rucksacks = file.Select(x => x.Chunk(x.Length / 2)).ToList();
+        var rucksacks = file.Select(x => x.Chunk(x.Length / 2));
         var matches = rucksacks.Select(x => x.First().Intersect(x.Last()).Single());
         var priorities = matches.Select(x => CharacterToPriority(x));
         return priorities.Sum();
