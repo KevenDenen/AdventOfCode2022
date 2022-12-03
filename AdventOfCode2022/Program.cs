@@ -8,3 +8,6 @@ Console.WriteLine();
 Console.WriteLine($"Day Two Part One: {DayTwo.PartOne()}");
 Console.WriteLine($"Day Two Part Two: {DayTwo.PartTwo()}");
 Console.WriteLine();
+Console.WriteLine($"Day Three Part One: {DayThree.PartOne()}");
+Console.WriteLine($"Day Three Part Two: {DayThree.PartTwo()}");
+Console.WriteLine();
