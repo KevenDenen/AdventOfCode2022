@@ -11,3 +11,6 @@ Console.WriteLine();
 Console.WriteLine($"Day Three Part One: {DayThree.PartOne()}");
 Console.WriteLine($"Day Three Part Two: {DayThree.PartTwo()}");
 Console.WriteLine();
+Console.WriteLine($"Day Four Part One: {DayFour.PartOne()}");
+Console.WriteLine($"Day Four Part Two: {DayFour.PartTwo()}");
+Console.WriteLine();
