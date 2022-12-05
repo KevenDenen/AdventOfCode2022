@@ -18,21 +18,36 @@ internal static class DayFive
             for (int i = 0; i < instruction.number; i++)
             {
                 var crate = stackList[instruction.from - 1].Pop();
-                stackList[instruction.to -1].Push(crate);
+                stackList[instruction.to - 1].Push(crate);
             }
         }
 
-        var topCrates = string.Empty;
-        foreach (var stack in stackList)
-        {
-            topCrates += stack.Pop();
-        }
-        return topCrates;
+        return GetTopCrates(stackList);
     }
 
     internal static string PartTwo()
     {
-        return string.Empty;
+        var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
+
+        var index = Array.FindIndex(input, x => x.StartsWith(" 1"));
+        var instructions = input.Skip(index + 2).ToArray().Select(x => x.Split(' ')).Select(x => (number: int.Parse(x[1]), from: int.Parse(x[3]), to: int.Parse(x[5])));
+        List<Stack<char>> stackList = CreateStacks(input, index);
+
+        foreach (var instruction in instructions)
+        {
+            var holding = new Stack<char>();
+            for (int i = 0; i < instruction.number; i++)
+            {
+                var crate = stackList[instruction.from - 1].Pop();
+                holding.Push(crate);
+            }
+            foreach (var crate in holding)
+            {
+                stackList[instruction.to - 1].Push(crate);
+            }
+        }
+
+        return GetTopCrates(stackList);
     }
 
     private static List<Stack<char>> CreateStacks(string[] input, int index)
@@ -59,6 +74,16 @@ internal static class DayFive
         }
 
         return stackList;
+    }
+
+    private static string GetTopCrates(List<Stack<char>> stackList)
+    {
+        var topCrates = string.Empty;
+        foreach (var stack in stackList)
+        {
+            topCrates += stack.Pop();
+        }
+        return topCrates;
     }
 
 }
