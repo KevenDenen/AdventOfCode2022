@@ -9,9 +9,9 @@ internal static class DayFive
     {
         var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
 
-        var index = Array.FindIndex(input, x => x.StartsWith(" 1"));
-        var instructions = input.Skip(index + 2).ToArray().Select(x => x.Split(' ')).Select(x => (number: int.Parse(x[1]), from: int.Parse(x[3]), to: int.Parse(x[5])));
-        List<Stack<char>> stackList = CreateStacks(input, index);
+        var indexOfStackNumbers = Array.FindIndex(input, r => r.StartsWith(" 1"));
+        var instructions = GetInstructions(input, indexOfStackNumbers);
+        var stackList = CreateStacks(input, indexOfStackNumbers);
 
         foreach (var instruction in instructions)
         {
@@ -29,9 +29,9 @@ internal static class DayFive
     {
         var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
 
-        var index = Array.FindIndex(input, x => x.StartsWith(" 1"));
-        var instructions = input.Skip(index + 2).ToArray().Select(x => x.Split(' ')).Select(x => (number: int.Parse(x[1]), from: int.Parse(x[3]), to: int.Parse(x[5])));
-        List<Stack<char>> stackList = CreateStacks(input, index);
+        var indexOfStackNumbers = Array.FindIndex(input, x => x.StartsWith(" 1"));
+        var instructions = GetInstructions(input, indexOfStackNumbers);
+        var stackList = CreateStacks(input, indexOfStackNumbers);
 
         foreach (var instruction in instructions)
         {
@@ -84,6 +84,15 @@ internal static class DayFive
             topCrates += stack.Pop();
         }
         return topCrates;
+    }
+
+    private static IEnumerable<(int number, int from, int to)> GetInstructions(string[] input, int indexOfStackNumbers)
+    {
+        return input.Skip(indexOfStackNumbers + 2).ToArray()
+                                .Select(r => r.Split(' '))
+                                .Select(r => (number: int.Parse(r[1]),
+                                              from: int.Parse(r[3]),
+                                              to: int.Parse(r[5])));
     }
 
 }
