@@ -21,8 +21,17 @@ internal static class DaySix
         return startOfPacket;
     }
 
-    internal static object PartTwo()
+    internal static int PartTwo()
     {
-        return 0;
+        var input = FileReader.GetWholeFileAsString(fileName);
+        var startOfMessage = 0;
+        for (int i = 4; i < input.Length && startOfMessage == 0; i++)
+        {
+            var slider = new HashSet<char>(input.Skip(i - 14).Take(14));
+            if (slider.Count <= 13)
+                continue;
+            startOfMessage = i;
+        }
+        return startOfMessage;
     }
 }
