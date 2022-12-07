@@ -1,11 +1,11 @@
 ﻿using Helpers;
-using System.Runtime.CompilerServices;
 
 namespace Puzzles;
 
 internal static class DaySeven
 {
     private static string fileName = "DaySeven.txt";
+
     internal static long PartOne()
     {
         var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
