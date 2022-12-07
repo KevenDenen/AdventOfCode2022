@@ -34,7 +34,31 @@ internal static class DaySeven
     internal static long PartTwo()
     {
         var input = FileReader.GetWholeFileAsArrayOfLines(fileName);
-        return 0;
+        Directory? workingDirectory = ParseInput(input);
+
+        var totalDiskSpace = 70_000_000;
+        var neededDiskSpace = 30_000_000;
+        var unusedDiskSpace = totalDiskSpace - workingDirectory.Size;
+        var needToDelete = neededDiskSpace - unusedDiskSpace;
+
+        var dfsStack = new Stack<Directory>();
+        dfsStack.Push(workingDirectory);
+
+        var smallestDirectorySize = long.MaxValue;
+        while (dfsStack.Count > 0)
+        {
+            var current = dfsStack.Pop();
+            foreach (var child in current.Children)
+            {
+                dfsStack.Push(child.Value);
+            }
+            if (current.Size > needToDelete && current.Size < smallestDirectorySize)
+            {
+                smallestDirectorySize = current.Size;
+            }
+        }
+
+        return smallestDirectorySize;
     }
 
     private static Directory ParseInput(string[] input)
