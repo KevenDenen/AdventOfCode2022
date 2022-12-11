@@ -23,3 +23,6 @@ Console.WriteLine();
 Console.WriteLine($"Day Seven Part One: {DaySeven.PartOne()}");
 Console.WriteLine($"Day Seven Part Two: {DaySeven.PartTwo()}");
 Console.WriteLine();
+Console.WriteLine($"Day Ten Part One: {DayTen.PartOne()}");
+DayTen.PartTwo();
+Console.WriteLine();
